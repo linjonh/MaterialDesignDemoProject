@@ -1,0 +1,41 @@
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.jaysen.mddp.NavigationViewActivity"><!--set fitSystemWindows as true to show immersive mode-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- We use a Toolbar so that our drawer can be displayed
+          in front of the action bar -->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_awesome_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:theme="@style/AppTheme"
+            app:popupTheme="@style/AppTheme"
+            android:minHeight="?attr/actionBarSize"/>
+
+        <!-- The rest of your content view -->
+    </FrameLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:backgroundTint="#cc0099"
+        app:backgroundTintMode="screen"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconTint="#0099cc"
+        app:itemTextColor="@color/accent_material_light"
+        app:menu="@menu/menu_navigation_view">
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

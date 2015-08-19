@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.jaysen.mddp.NavigationViewActivity">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navItem1"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Home"/>
+        <item
+            android:id="@+id/navItem2"
+            android:icon="@mipmap/ic_launcher"
+
+            android:title="Blog"/>
+        <item
+            android:id="@+id/navItem3"
+            android:icon="@mipmap/ic_launcher"
+
+            android:title="About"/>
+        <item
+            android:id="@+id/navItem4"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Contact"/>
+    </group>
+</menu>

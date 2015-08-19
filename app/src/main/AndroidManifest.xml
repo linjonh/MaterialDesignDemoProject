@@ -9,7 +9,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@android:style/ThemeOverlay.Material">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -21,6 +22,26 @@
             android:label="@string/title_activity_text_input_layout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.jaysen.example.MDDP"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NavigationViewActivity"
+            android:label="@string/title_activity_navigation_view">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.jaysen.example.MDDP"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ToolbarNavigationView"
+            android:label="@string/title_activity_toolbar_navigation_view"
+            android:theme="@style/FitSystemWindowsTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="com.jaysen.example.MDDP"/>
             </intent-filter>
         </activity>

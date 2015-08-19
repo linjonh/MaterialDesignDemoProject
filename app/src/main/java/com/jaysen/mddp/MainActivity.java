@@ -4,12 +4,18 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,48 +23,121 @@ import java.util.Map;
 
 public class MainActivity extends ListActivity {
 
+    public static final String KEY_PATH = "com.jaysen.example.Path";
+    public static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setListAdapter(new SimpleAdapter(this, getData(),
+        super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        String path = intent.getStringExtra(KEY_PATH);
+        if (Build.VERSION.SDK_INT >= 11) {
+            boolean success = requestWindowFeature(Window.FEATURE_ACTION_BAR);
+            if (success) {
+                Log.e(TAG, "requestWindowFeature success");
+            } else {
+                Log.e(TAG, "requestWindowFeature failed");
+            }
+        }
+        if (path == null) {
+            path = "";
+        }
+        setTheme(0);
+        setListAdapter(new SimpleAdapter(this, getData(path),
                 android.R.layout.simple_list_item_1, new String[]{"title"},
                 new int[]{android.R.id.text1}));
 
     }
 
-    private List<? extends Map<String, ?>> getData() {
-        ArrayList<HashMap<String, Object>> datas = new ArrayList<>();
-        Intent sampleIntent = new Intent();
-        sampleIntent.setAction(Intent.ACTION_MAIN);
-        sampleIntent.addCategory("com.jaysen.example.MDDP");
+    protected List<Map<String, Object>> getData(String prefix) {
+        List<Map<String, Object>> myData = new ArrayList<Map<String, Object>>();
+
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory("com.jaysen.example.MDDP");
+
         PackageManager pm = getPackageManager();
-        List<ResolveInfo> list = pm.queryIntentActivities(sampleIntent, 0);
-        if (list == null) {
-            return datas;
+        List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);
+
+        if (null == list)
+            return myData;
+
+        String[] prefixPath;
+        String prefixWithSlash = prefix;
+
+        if (prefix.equals("")) {
+            prefixPath = null;
+        } else {
+            prefixPath = prefix.split("/");
+            prefixWithSlash = prefix + "/";
         }
-        for (ResolveInfo resolveInfo : list) {
-            CharSequence title = resolveInfo.loadLabel(pm);
-            //filter label to get wanted activity class
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("title", title.toString());
-            map.put("intent", newActivityIntent(resolveInfo.activityInfo.packageName,
-                    resolveInfo.activityInfo.name));
-            datas.add(map);
+
+        int len = list.size();
+
+        Map<String, Boolean> entries = new HashMap<String, Boolean>();
+
+        for (int i = 0; i < len; i++) {
+            ResolveInfo info = list.get(i);
+            CharSequence labelSeq = info.loadLabel(pm);
+            String label = labelSeq != null
+                    ? labelSeq.toString()
+                    : info.activityInfo.name;
+
+            if (prefixWithSlash.length() == 0 || label.startsWith(prefixWithSlash)) {
+
+                String[] labelPath = label.split("/");
+
+                String nextLabel = prefixPath == null ? labelPath[0] : labelPath[prefixPath.length];
+
+                if ((prefixPath != null ? prefixPath.length : 0) == labelPath.length - 1) {
+                    addItem(myData, nextLabel, activityIntent(
+                            info.activityInfo.applicationInfo.packageName,
+                            info.activityInfo.name));
+                } else {
+                    if (entries.get(nextLabel) == null) {
+                        addItem(myData, nextLabel, browseIntent(
+                                prefix.equals("") ? nextLabel : prefix + "/" + nextLabel));
+                        entries.put(nextLabel, true);
+                    }
+                }
+            }
         }
-        return datas;
+
+        Collections.sort(myData, sDisplayNameComparator);
+
+        return myData;
     }
 
-    private Intent newActivityIntent(String pkg, String claz) {
-        Intent intent = new Intent();
-        intent.setClassName(pkg, claz);
-        return null;
+    private final static Comparator<Map<String, Object>> sDisplayNameComparator =
+            new Comparator<Map<String, Object>>() {
+                private final Collator collator = Collator.getInstance();
+
+                @Override
+                public int compare(Map<String, Object> map1, Map<String, Object> map2) {
+                    return collator.compare(map1.get("title"), map2.get("title"));
+                }
+            };
+
+    protected Intent activityIntent(String pkg, String componentName) {
+        Intent result = new Intent();
+        result.setClassName(pkg, componentName);
+        return result;
     }
-    private Intent newClusterIntent(String pkg, String claz) {
-        Intent intent = new Intent();
-        intent.setClassName(pkg, claz);
-        return null;
+
+    protected Intent browseIntent(String path) {
+        Intent result = new Intent();
+        result.setClass(this, MainActivity.class);
+        result.putExtra(KEY_PATH, path);
+        return result;
     }
+
+    protected void addItem(List<Map<String, Object>> data, String name, Intent intent) {
+        Map<String, Object> temp = new HashMap<String, Object>();
+        temp.put("title", name);
+        temp.put("intent", intent);
+        data.add(temp);
+    }
+
 
     @Override
     @SuppressWarnings("unchecked")
