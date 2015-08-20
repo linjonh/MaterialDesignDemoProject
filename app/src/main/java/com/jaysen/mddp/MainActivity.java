@@ -15,15 +15,17 @@
  */
 package com.jaysen.mddp;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.GridLayoutAnimationController;
+import android.view.animation.LayoutAnimationController;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -36,33 +38,31 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     public static final String KEY_PATH = "com.jaysen.example.Path";
     public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ListView listView = (ListView) findViewById(R.id.list_view);
+
         Intent intent = getIntent();
         String path = intent.getStringExtra(KEY_PATH);
-        if (Build.VERSION.SDK_INT >= 11) {
-            boolean success = requestWindowFeature(Window.FEATURE_ACTION_BAR);
-            if (success) {
-                Log.e(TAG, "requestWindowFeature success");
-            } else {
-                Log.e(TAG, "requestWindowFeature failed");
-            }
-        }
+
         if (path == null) {
             path = "";
         }
-        setTheme(0);
-        setListAdapter(new SimpleAdapter(this, getData(path),
+        listView.setAdapter(new SimpleAdapter(this, getData(path),
                 android.R.layout.simple_list_item_1, new String[]{"title"},
                 new int[]{android.R.id.text1}));
-
+        listView.setOnItemClickListener(this);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.right_in_animation);
+        LayoutAnimationController animationController = new LayoutAnimationController(
+                animation);
+        listView.setLayoutAnimation(animationController);
     }
 
     protected List<Map<String, Object>> getData(String prefix) {
@@ -154,10 +154,10 @@ public class MainActivity extends ListActivity {
     }
 
 
-    @Override
     @SuppressWarnings("unchecked")
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Map<String, Object> map = (Map<String, Object>) l.getItemAtPosition(position);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
 
         Intent intent = (Intent) map.get("intent");
         startActivity(intent);

@@ -14,50 +14,50 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jaysen.mddp" >
+<manifest package="com.jaysen.mddp"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/ThemeOverlay.Material" >
+            >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".TextInputLayoutActivity"
-            android:label="@string/title_activity_text_input_layout" >
+            android:label="@string/title_activity_text_input_layout">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="com.jaysen.example.MDDP" />
+                <category android:name="com.jaysen.example.MDDP"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".NavigationViewActivity"
-            android:label="@string/title_activity_navigation_view" >
+            android:label="@string/title_activity_navigation_view">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="com.jaysen.example.MDDP" />
+                <category android:name="com.jaysen.example.MDDP"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".ToolbarNavigationView"
             android:label="@string/title_activity_toolbar_navigation_view"
-            android:theme="@style/FitSystemWindowsTheme" >
+            android:theme="@style/FitSystemWindowsTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="com.jaysen.example.MDDP" />
+                <category android:name="com.jaysen.example.MDDP"/>
             </intent-filter>
         </activity>
         <activity
@@ -65,9 +65,20 @@
             android:label="@string/title_activity_app_bar_layout_activitiy"
             android:theme="@style/FitSystemWindowsTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="com.jaysen.example.MDDP" />
+                <category android:name="com.jaysen.example.MDDP"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CollapsingToolbarLayoutActivity"
+            android:label="@string/title_activity_collapsed_layout"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/FitSystemWindowsTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.jaysen.example.MDDP"/>
             </intent-filter>
         </activity>
     </application>
