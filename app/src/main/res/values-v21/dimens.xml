@@ -1,3 +1,4 @@
+
 <!--
   ~ Copyright (c) 2015. The Android Open Project of  jaysen.lin@foxmail.com
   ~
@@ -14,12 +15,8 @@
   ~ limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.jaysen.mddp.AppBarLayoutActivity">
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
-</menu>
+<resources>
+    <!-- Default fab margins, per the Android Design guidelines. -->
+    <dimen name="fab_horizontal_margin">16dp</dimen>
+    <dimen name="fab_vertical_margin">16dp</dimen>
+</resources>

@@ -24,8 +24,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -61,7 +60,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AppBarLayoutActivitiy"
+            android:name=".AppBarLayoutActivity"
             android:label="@string/title_activity_app_bar_layout_activitiy"
             android:theme="@style/FitSystemWindowsTheme">
             <intent-filter>
@@ -75,6 +74,15 @@
             android:label="@string/title_activity_collapsed_layout"
             android:parentActivityName=".MainActivity"
             android:theme="@style/FitSystemWindowsTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="com.jaysen.example.MDDP"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FloatActionBarAndSnackbarActivity"
+            android:label="@string/title_activity_snackbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

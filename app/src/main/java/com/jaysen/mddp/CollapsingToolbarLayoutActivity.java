@@ -18,13 +18,11 @@ package com.jaysen.mddp;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class CollapsingToolbarLayoutActivity extends AppCompatActivity {
+public class CollapsingToolbarLayoutActivity extends AbsAppCompatActivity {
 
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
@@ -34,7 +32,7 @@ public class CollapsingToolbarLayoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_collapsing_toolbar_layout);
         setUpTabLayout();
         setUpActionBar();
-        setTitileText();
+        setTitleText();
     }
 
     private void setUpActionBar() {
@@ -44,7 +42,7 @@ public class CollapsingToolbarLayoutActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
-    private void setTitileText() {
+    private void setTitleText() {
         if (mCollapsingToolbarLayout == null) {
             mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(
                     R.id.collapsing_toolbar_layout);
@@ -52,14 +50,6 @@ public class CollapsingToolbarLayoutActivity extends AppCompatActivity {
         mCollapsingToolbarLayout.setTitle("CollapsingToolbarLayoutActivity");
     }
 
-    private void setUpTabLayout() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 4"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 5"));
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,5 +71,10 @@ public class CollapsingToolbarLayoutActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        return false;
     }
 }

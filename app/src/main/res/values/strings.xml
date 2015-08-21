@@ -26,4 +26,5 @@
     <string name="title_activity_toolbar_navigation_view">ToolbarNavigationView</string>
     <string name="title_activity_app_bar_layout_activitiy">AppBarLayoutActivitiy</string>
     <string name="title_activity_collapsed_layout">CollapsedLayoutActivity</string>
+    <string name="title_activity_snackbar">FloatActionBarSnackbarActivity</string>
 </resources>

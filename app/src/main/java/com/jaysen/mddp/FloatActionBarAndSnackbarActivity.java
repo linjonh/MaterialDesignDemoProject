@@ -13,29 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.jaysen.mddp;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-/**
- * DrawerLayout with ActionBar and NavigationView widget
- */
-public class NavigationViewActivity extends AbsAppCompatActivity {
+public class FloatActionBarAndSnackbarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation_view);
-        setUpDrawerLayout();
-        setUpNavMenu();
+        setContentView(R.layout.activity_fab_snackbar);
+        findViewById(R.id.show_snack_bar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perFormSnackbar(v);
+            }
+        });
     }
+    private void perFormSnackbar(View v){
+        Snackbar.make(v, "this is snackbar content text! ", Snackbar.LENGTH_SHORT).setAction("Undo",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                    }
+                }).show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_navigation_view, menu);
+        getMenuInflater().inflate(R.menu.menu_snackbar, menu);
         return true;
     }
 
@@ -52,21 +65,5 @@ public class NavigationViewActivity extends AbsAppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem menuItem) {
-        int id = menuItem.getItemId();
-        switch (id) {
-            case R.id.navItem1:
-                break;
-            case R.id.navItem2:
-                break;
-            case R.id.navItem3:
-                break;
-        }
-        menuItem.setChecked(true);
-        mDrawerLayout.closeDrawer(mNavigation);
-        return true;
     }
 }
