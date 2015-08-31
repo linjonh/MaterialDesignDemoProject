@@ -27,4 +27,7 @@
     <string name="title_activity_app_bar_layout_activitiy">AppBarLayoutActivitiy</string>
     <string name="title_activity_collapsed_layout">CollapsedLayoutActivity</string>
     <string name="title_activity_snackbar">FloatActionBarSnackbarActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

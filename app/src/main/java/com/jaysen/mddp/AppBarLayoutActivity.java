@@ -16,16 +16,23 @@
 
 package com.jaysen.mddp;
 
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.jaysen.mddp.adapter.MyViewPagerAdapter;
 
-public class AppBarLayoutActivity extends AbsAppCompatActivity {
+import java.util.ArrayList;
+
+
+public class AppBarLayoutActivity extends AbsAppCompatActivity implements TabFragment.OnFragmentInteractionListener {
+    protected ViewPager mPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,24 @@ public class AppBarLayoutActivity extends AbsAppCompatActivity {
         setUpTabLayout();
         setUpDrawerLayout();
         setUpNavMenu();
+        setUpViewPager();
+    }
+
+    protected void setUpViewPager() {
+        mPager = (ViewPager) findViewById(R.id.pager);
+        MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager());
+        adapter.setFragments(getFragments());
+        mPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mPager);
+    }
+
+    private ArrayList<Fragment> getFragments() {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            Fragment fragment = TabFragment.newInstance();
+            fragments.add(fragment);
+        }
+        return fragments;
     }
 
     @Override
@@ -95,5 +120,10 @@ public class AppBarLayoutActivity extends AbsAppCompatActivity {
         menuItem.setChecked(true);
         mDrawerLayout.closeDrawer(mNavigation);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

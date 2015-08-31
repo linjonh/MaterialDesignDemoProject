@@ -32,6 +32,7 @@ public abstract class AbsAppCompatActivity extends AppCompatActivity implements 
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
     protected NavigationView mNavigation;
+    protected TabLayout mTabLayout;
 
     protected void setUpDrawerLayout() {
         if (getSupportActionBar() != null) {
@@ -51,12 +52,12 @@ public abstract class AbsAppCompatActivity extends AppCompatActivity implements 
     }
 
     protected void setUpTabLayout() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 4"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 5"));
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 1"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 2"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 3"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 4"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 5"));
     }
 
     protected void setUpNavMenu() {
